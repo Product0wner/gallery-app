@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import axios from 'axios'
 
@@ -13,11 +12,12 @@ class App extends Component {
     images: []
   };
 
-  performSearch = (query = 'cat') => {
-    axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=sunsets&per_page=&format=json`)
+  performSearch = (query) => {
+    console.log(query);
+    axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
       .then(res => {
         this.setState({ 
-          gifs: res.data.data,
+          images: res.data.photos.photo,
           loading: false
         });
       })  
@@ -27,13 +27,11 @@ class App extends Component {
   }
   
   render() {
-    console.log("dulli")
-    console.log(this.state.images)
     return (
-      <div class="container">
-      <SearchForm/>
+      <div className="container">
+      <SearchForm onSearch={this.performSearch}/>  
       <MainNav/>
-      <PhotoList/>
+      <PhotoList data = {this.state.images}/>
     </div>
     ) 
   } 

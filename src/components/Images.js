@@ -1,25 +1,28 @@
 import React from 'react'
+  // https://live.staticflickr.com/65535/50718986528_326dbd9808.jpg
+  //https://live.staticflickr.com/${server-id}/${id}_${secret}.jpg
 
-const Images = () => {
+
+const Images = (props) => {
+    console.log(props.data)
+    console.log(props.data[0].server)
+    let images = props.data
+    
     return (
         <ul>
             <li>
-                <img src="https://farm5.staticflickr.com/4334/37032996241_4c16a9b530.jpg" alt="" />
+                <img src= {`https://live.staticflickr.com/${images[0].server}/${images[0].id}_${images[0].secret}.jpg`} alt="" />
             </li>
-        <li>
-            <img src="https://farm5.staticflickr.com/4342/36338751244_316b6ee54b.jpg" alt="" />
-        </li>
-        <li>
-            <img src="https://farm5.staticflickr.com/4343/37175099045_0d3a249629.jpg" alt="" />
-        </li>
-        <li>
-            <img src="https://farm5.staticflickr.com/4425/36337012384_ba3365621e.jpg" alt="" />
-        </li>
+            <li>
+                <img src={`https://live.staticflickr.com/${images[1].server}/${images[1].id}_${images[1].secret}.jpg`} alt="" />
+            </li>
+            <li>
+                <img src={`https://live.staticflickr.com/${images[2].server}/${images[2].id}_${images[2].secret}.jpg`} alt="" />
+            </li>
+            <li>
+                <img src={`https://live.staticflickr.com/${images[3].server}/${images[3].id}_${images[3].secret}.jpg`} alt="" />
+            </li>
         
-        <li className="not-found">
-            <h3>No Results Found</h3>
-            <p>You search did not return any results. Please try again.</p>
-        </li>
         </ul>
     )
 }
