@@ -1,39 +1,35 @@
 import React, { Component } from 'react';
-import './App.css';
-import axios from 'axios'
 
-import SearchForm from './components/SearchForm'
-import MainNav from './components/MainNav'
-import PhotoList from './components/PhotoList'
-import apiKey from './config'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from 'react-router-dom';
 
-class App extends Component {
-  state = {
-    images: []
-  };
+//App components
+import RouteHandling from './components/Routing';
+import PageNotFound from './components/PageNotFound';
+import Nav from './components/Nav';
+import SearchForm from './components/SearchForm';
 
-  performSearch = (query) => {
-    console.log(query);
-    axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
-      .then(res => {
-        this.setState({ 
-          images: res.data.photos.photo,
-          loading: false
-        });
-      })  
-      .catch(error => {
-        console.log('Error when trying to fetch data', error)
-      })
-  }
-  
+//import Layout from './components/Layout';
+
+export default class App extends Component {
   render() {
     return (
       <div className="container">
-      <SearchForm onSearch={this.performSearch}/>  
-      <MainNav/>
-      <PhotoList data = {this.state.images}/>
-    </div>
-    ) 
-  } 
+        <Router>  
+          <SearchForm/>
+          <Nav/>
+          <Switch>
+            <Route exact path="/" render={() => <Redirect to="/search/diversity"/>} />
+            <Route exact path="/search/" render={() => <Redirect to="/search/diversity"/>} />
+            <Route exact path="/search/:query" component={RouteHandling}/>
+            <Route component={PageNotFound} />
+          </Switch>
+        </Router>
+      </div>
+    );
+  }
 }
-export default App;
