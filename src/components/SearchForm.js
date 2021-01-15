@@ -1,16 +1,15 @@
 import React, {Component} from 'react';
 import { withRouter } from 'react-router-dom';
+
 class SearchForm extends Component {
   
+  //pass the user input to the URL and into the history object
   handleSubmit = (e) => {
     e.preventDefault();
     let path = `/search/${this.query.value}`;
-    
     e.currentTarget.reset();
     this.props.history.push(path);
   }
-  
-  
   render(){
     return(
       <form className="search-form" onSubmit={this.handleSubmit}>
@@ -32,9 +31,7 @@ class SearchForm extends Component {
           </svg>
         </button>
       </form>
-
     )
   }
 }
-
 export default withRouter(SearchForm);

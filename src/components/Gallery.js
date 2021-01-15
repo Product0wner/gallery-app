@@ -6,7 +6,8 @@ export default class Gallery extends Component{
     render(){
     const results = this.props.images;
     let images;
-
+    
+    // if response has images
     if(results.length > 0){
         images = results.map( image => 
             <Image  
@@ -18,13 +19,13 @@ export default class Gallery extends Component{
                 /> 
             );
     } else {  images = <NotFound />; }
-        
+    
+    //Show images if loading is finshed
     return  (
-
         <div className="photo-container">
             <h2>{window.location.pathname.slice(8)}</h2>
-            { !this.props.loading   ?  ''   :   <h1>Loading...</h1> }
-            { this.props.loading    ? ''    :   <ul>{images}</ul>   }
+            {!this.props.loading ? '' : <h1>Loading...</h1> }
+            {this.props.loading ? '' : <ul>{images}</ul>   }
         </div>
         );
     }  

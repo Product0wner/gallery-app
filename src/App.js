@@ -7,13 +7,12 @@ import {
   Redirect
 } from 'react-router-dom';
 
-//App components
+//React compontent are loaded
 import RouteHandling from './components/Routing';
 import PageNotFound from './components/PageNotFound';
 import Nav from './components/Nav';
 import SearchForm from './components/SearchForm';
 
-//import Layout from './components/Layout';
 
 export default class App extends Component {
   render() {

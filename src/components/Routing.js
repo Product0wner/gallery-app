@@ -6,32 +6,33 @@ import apiKey from '../config';
 
 
 export default class RouteHandling extends Component {
-  
+    //set intial state of the app
     state = {
       images: [],
       query: this.props.match.params.query,
       loading: true
   }
-  
+  // perform search when loading on the query from the URL
   componentDidMount() {
     this.performSearch(this.props.match.params.query);
+    console.log(this.props.match)
   }
 
+  //compare current and previous search. Perform new search if they are not the same.
   componentDidUpdate(prevProps) {
-    let prevQuery = prevProps.match.params.query;
+    let prevSearch = prevProps.match.params.query;
     let query  = this.props.match.params.query;
-    if(prevQuery !== query){
+    if(prevSearch !== query){
       this.performSearch(query);
     }
   }
 
-  //Can be set to default
+  //Function that fetches the data and updates the state
   performSearch(query){
     this.setState(
       { loading: true }
     )
     let URL = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`;
-
     axios.get(URL)
     .then((response) => {
       this.setState({
@@ -41,12 +42,12 @@ export default class RouteHandling extends Component {
       })
     })
   }     
-    render() {
-      return (
-          <Gallery
-            query ={this.state.query}
-            images= {this.state.images}
-            loading={this.state.loading}/>
-        )
-    }
+  render() {
+    return (
+      <Gallery
+        query ={this.state.query}
+        images= {this.state.images}
+        loading={this.state.loading}/>
+    )
+  }
 }
